@@ -4,7 +4,7 @@
     <button @click="OpenModal()">Create</button>
     <div style="margin-top: 1rem;">
       <button
-      v-for="btn in Buttons"
+      v-for="btn in orderedButtons"
       :key="btn.id"
       @click="actionButton(btn)"
       :class="{ tachado: btn.hecha}"
@@ -65,6 +65,13 @@
         nameButton: ""
       }
     },
+    computed:{
+      orderedButtons(){
+        return [...this.Buttons].sort((a, b) => {
+          return (b.hecha === true) - (a.hecha === true);
+        });
+      }
+    },
     methods: {
       OpenModal(){
         this.nameButton = ""
@@ -99,12 +106,8 @@
           alert("Opcion no valida!")
         }
         
-      },
-      /*orderedButtons(){
-        return this.Buttons.slice().sort((a, b) =>{
-          return (b.hecha === true) - (a.hecha === true);
-        });
-      }*/
+      }
+      
     }
     
   }
